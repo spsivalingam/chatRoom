@@ -1,0 +1,226 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ITIS580 Photos App",
+		"_postman_id": "3deb1acd-6ab6-fc15-728b-098c7918742f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/login",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "user@test.org",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "fname",
+							"value": "Bob",
+							"type": "text"
+						},
+						{
+							"key": "lname",
+							"value": "Smith",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/signup",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/thread",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newFile",
+							"value": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/thread/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "This is a test thread",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread/add",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/thread/delete/{thread_id}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newFile",
+							"value": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/thread/delete/1",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/messages/{thread_id}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newFile",
+							"value": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/messages/1",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/message/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "message",
+							"value": "testing message",
+							"type": "text"
+						},
+						{
+							"key": "thread_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/add",
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/api/message/delete/{message_id}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "BEARER eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MDk2ODY2OTYsImV4cCI6MTU0MTIyMjY5NiwianRpIjoiMkdKV2c3U0hKS3NiT2IyZVNkVzFWayIsInVzZXIiOjF9.rRTLX3i-kFYxAtbhUXrqQKDxXs0KoTEgV4iRX2q3p5M"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "newFile",
+							"value": "",
+							"type": "file"
+						}
+					]
+				},
+				"url": "http://ec2-54-164-74-55.compute-1.amazonaws.com/api/message/delete/1",
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

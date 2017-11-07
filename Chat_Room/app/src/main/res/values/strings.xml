@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Chat_Room</string>
+    <string name="loginButton">Login</string>
+    <string name="signUpButton">Sign Up</string>
+    <string name="cancelSignUp">cancel</string>
+    <string name="signupSignUpPage">Sign Up</string>
+</resources>
