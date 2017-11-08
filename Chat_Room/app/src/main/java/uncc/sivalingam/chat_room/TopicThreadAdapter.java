@@ -18,6 +18,7 @@ import java.util.List;
 
 public class TopicThreadAdapter extends ArrayAdapter {
         Context context;
+    MessageThreadsActivity messageThreadsActivity;
         List objects;
         ArrayList<ThreadMsg> topicList;
         long logedInUser_Id;
@@ -25,6 +26,7 @@ public class TopicThreadAdapter extends ArrayAdapter {
     public TopicThreadAdapter(Context context, List objects, long user_id) {
         super(context,R.layout.custom_listview_thread_topic,objects);
         this.context=context;
+        messageThreadsActivity= (MessageThreadsActivity) context;
         this.objects=objects;
         this.topicList= (ArrayList<ThreadMsg>) objects;
         logedInUser_Id=user_id;
@@ -32,7 +34,7 @@ public class TopicThreadAdapter extends ArrayAdapter {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
         if(convertView==null){
            LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,6 +59,14 @@ public class TopicThreadAdapter extends ArrayAdapter {
             holder.delete.setVisibility(convertView.VISIBLE);
             holder.delete.setEnabled(true);
         }
+
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageThreadsActivity.deleteTopicThread(position);
+            }
+        });
 
 
         return convertView;

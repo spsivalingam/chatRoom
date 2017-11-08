@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -65,6 +66,8 @@ TextView fullName;
 
  */
         getAllThreads();
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,4 +176,53 @@ TextView fullName;
             }
         });
     }
+    public void deleteTopicThread(int position) {
+        long thread_id;
+        Request request;
+        String auth= MainActivity.AUTH+" "+token;
+
+
+        thread_id =topicList.get(position).getThread_id();  // got the thread_ID to be deleted
+
+        request = new Request.Builder().header(MainActivity.AUTH_KEY,auth).url(MainActivity.STATIC_URL+"/thread/delete/"+String.valueOf(thread_id))
+                .build();
+
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                data = response.body().string();
+                MessageThreadsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        checkResponse(data);
+                    }
+                });
+            }
+        });
+    }
+
+
+    private void checkResponse(String s){
+        try {
+            JSONObject root = new JSONObject(s);
+            String status = root.getString("status");
+            if (status.equals(MainActivity.STATUS_OK)){
+                getAllThreads();
+            }
+            else{
+                Toast.makeText(MessageThreadsActivity.this,"Delete Failed",Toast.LENGTH_LONG);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
