@@ -4,4 +4,5 @@
     <string name="signUpButton">Sign Up</string>
     <string name="cancelSignUp">cancel</string>
     <string name="signupSignUpPage">Sign Up</string>
+    <string name="string">Current Threads</string>
 </resources>

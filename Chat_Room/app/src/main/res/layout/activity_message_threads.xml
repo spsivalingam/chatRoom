@@ -10,4 +10,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="uncc.sivalingam.chat_room.MessageThreadsActivity">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/headLinearLayout">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fullNameText"
+            android:layout_weight="12" />
+
+        <Button
+            android:text="LogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutButton"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headLinearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+
+        android:id="@+id/textView"
+        android:text="@string/string"
+        android:textSize="@dimen/activity_vertical_margin" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+       android:layout_below="@id/textView"
+        android:id="@+id/bodyLayout">
+
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listViewThreads" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/bodyLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/addThreadText"
+        android:hint="Add New Thread" />
+
+    <Button
+        android:text="Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addThreadText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/addThreadButton" />
+
 </RelativeLayout>
