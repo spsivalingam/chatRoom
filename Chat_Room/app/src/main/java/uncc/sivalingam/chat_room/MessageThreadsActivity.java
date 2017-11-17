@@ -1,5 +1,6 @@
 package uncc.sivalingam.chat_room;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,19 +32,24 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MessageThreadsActivity extends AppCompatActivity {
-TextView fullName;
+    TextView fullName;
     EditText addThread;
     ListView listViewBody;
     Button logout,addThreadButton;
+    User userL;
+     ArrayList<Message> msgList;
     static final String NEW_TITLE="title"; // Key to hold the topic text sent throu the form body in okHttp
     ArrayList<ThreadMsg> topicList = null;
     String userName;
     String data;
+    Long userLoggedInId;
+    long thread_id;
     final private OkHttpClient client = new OkHttpClient();
     private SharedPreferences.Editor sharedPrefEditor=null;
     private SharedPreferences sharedPref =null;
     ArrayAdapter adapter;
     String token;
+    String topic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,8 +120,10 @@ TextView fullName;
                         if(userJson.length()> 0) {
                             Gson gson = new Gson();
                             User userLogedIn =gson.fromJson(userJson,User.class);
+                            userL=userLogedIn;
                             //After consuming the API and parsing the data now we can populate the Adapter and send it to the ListView
-                             adapter = new TopicThreadAdapter(MessageThreadsActivity.this, topicList,userLogedIn.getUser_id());
+                            userLoggedInId =userLogedIn.getUser_id();
+                             adapter = new TopicThreadAdapter(MessageThreadsActivity.this, topicList,userLoggedInId);
                             listViewBody.setAdapter(adapter);
                         }
                     }
@@ -132,7 +140,7 @@ TextView fullName;
             JSONObject objthread;
             for (int i=0; i< arrayThreads.length();i++){
                 objthread=arrayThreads.getJSONObject(i);
-
+//(String fName, String lName,long user_id)
                 User user = new User(objthread.getString("user_fname"),objthread.getString("user_lname"),Long.parseLong(objthread.getString("user_id")));
                 //ThreadMsg(long thread_id, String topic, User createdUser, Date creationStamp)
                 ThreadMsg threadMsg = new ThreadMsg(Long.parseLong(objthread.getString("id")),objthread.getString("title"),user,objthread.getString("created_at"));
@@ -225,4 +233,81 @@ TextView fullName;
 
     }
 
+    public void callChatView(int position){
+        if(topicList!=null){
+            thread_id =topicList.get(position).getThread_id();
+             topic = topicList.get(position).getTopic();
+            getMsg(thread_id);
+
+        }
+
+    }
+
+    public void getMsg(long thread_id){
+        Request request = new Request.Builder().header(MainActivity.AUTH_KEY,MainActivity.AUTH+" "+token)
+                .url(MainActivity.STATIC_URL+"/messages/"+thread_id).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+            Log.d("TAG","CALL is faliure");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.d("TAG-MSG","CALL is Success");
+                data = response.body().string();
+                MessageThreadsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        parseAllMsg(data);
+                        proceedNext();
+                    }
+                });
+            }
+        });
+    }
+
+    private void parseAllMsg(String data){
+        try {
+            JSONObject root = new JSONObject(data);
+            if (root.getString("status").equals(MainActivity.STATUS_OK)){
+               JSONArray msgArray = root.getJSONArray("messages");
+                msgList= new ArrayList<>();
+                Message msg =null;
+                for(int i=0; i< msgArray.length();i++){
+                   JSONObject msgObj = (JSONObject) msgArray.get(i);
+                    msg = new Message();
+                    User user = new User();
+                    user.setfName(msgObj.getString("user_fname"));
+                    user.setlName(msgObj.getString("user_lname"));
+                    user.setUser_id(Long.parseLong(msgObj.getString("user_id")));
+                    msg.setMsg(msgObj.getString("message"));
+                    msg.setCreated_At(msgObj.getString("created_at"));
+                    msg.setThread_id(Long.parseLong(msgObj.getString("id")));
+                    msg.setUser(user);
+                    msgList.add(msg);
+                }
+
+
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void  proceedNext(){
+        Intent i = new Intent(MessageThreadsActivity.this,ChatRoomActivity.class);
+        Bundle b = new Bundle();
+        Log.d("TAG-MSGTHREAD",String.valueOf(msgList.size()));
+        b.putSerializable("MESSAGE",msgList);
+        i.putExtra("MESSAGELIST",b);
+
+        i.putExtra("THREAD_ID",thread_id);
+        i.putExtra("USER_ID",userLoggedInId);
+        i.putExtra("MESSAGE_TOPIC",topic);
+        startActivity(i);
+    }
 }

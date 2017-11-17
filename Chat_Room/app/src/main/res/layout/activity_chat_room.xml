@@ -42,7 +42,13 @@
         android:layout_below="@+id/headLayout"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/bodyLayout"></LinearLayout>
+        android:id="@+id/bodyLayout">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listviewMsg" />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"

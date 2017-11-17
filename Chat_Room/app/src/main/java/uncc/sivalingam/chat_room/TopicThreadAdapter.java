@@ -60,7 +60,9 @@ public class TopicThreadAdapter extends ArrayAdapter {
             holder.delete.setEnabled(true);
         }
 
-
+/*
+Listner to delete threads or topics from the list based on the creation
+ */
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +70,17 @@ public class TopicThreadAdapter extends ArrayAdapter {
             }
         });
 
+
+        /*
+        Listner to open chatRoom based on the topic clicked - Listner to listen for the event
+         */
+
+        holder.topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                messageThreadsActivity.callChatView(position);
+            }
+        });
 
         return convertView;
     }
